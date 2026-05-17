@@ -1,0 +1,127 @@
+#include <iostream>
+using namespace std;
+
+// Function to take valid input between 1 and 5
+int getInput(string question) {
+    int value;
+
+    while (true) {
+        cout << question;
+        cin >> value;
+
+        if (value >= 1 && value <= 5) {
+            return value;
+        }
+
+        cout << "Please enter number between 1 and 5.\n";
+    }
+}
+
+// Function to calculate average
+double average(int a, int b, int c) {
+    return (a + b + c) / 3.0;
+}
+
+int main() {
+
+    cout << "EMPLOYEE PERFORMANCE SYSTEM\n";
+
+    int n;
+    cout << "Enter number of employees: ";
+    cin >> n;
+
+    for (int i = 1; i <= n; i++) {
+
+        cout << "\nEmployee " << i << endl;
+
+        // PRODUCTIVITY
+        int p1 = getInput("Task completion (1-5): ");
+        int p2 = getInput("Work efficiency (1-5): ");
+        int p3 = getInput("Consistent output (1-5): ");
+
+        double productivity = average(p1, p2, p3);
+
+        // QUALITY
+        int q1 = getInput("Accuracy (1-5): ");
+        int q2 = getInput("Attention to detail (1-5): ");
+        int q3 = getInput("Follows standards (1-5): ");
+
+        double quality = average(q1, q2, q3);
+
+        // TEAMWORK
+        int t1 = getInput("Cooperation (1-5): ");
+        int t2 = getInput("Knowledge sharing (1-5): ");
+        int t3 = getInput("Supports team (1-5): ");
+
+        double teamwork = average(t1, t2, t3);
+
+        // ATTENDANCE
+        int a1 = getInput("Punctuality (1-5): ");
+        int a2 = getInput("Attendance (1-5): ");
+
+        double attendance = (a1 + a2) / 2.0;
+
+        // INITIATIVE
+        int i1 = getInput("Responsibility (1-5): ");
+        int i2 = getInput("Problem solving (1-5): ");
+        int i3 = getInput("Suggests improvements (1-5): ");
+
+        double initiative = average(i1, i2, i3);
+
+        // Final score calculation
+        double score =
+            productivity * 0.30 +
+            quality * 0.25 +
+            teamwork * 0.20 +
+            attendance * 0.15 +
+            initiative * 0.10;
+
+        double percentage = score * 20;
+
+        // Simple expert rules
+        if (attendance == 5)
+            percentage += 3;
+
+        if (teamwork <= 2)
+            percentage -= 5;
+
+        if (productivity >= 4 && quality >= 4)
+            percentage += 5;
+
+        // Limit score
+        if (percentage > 100)
+            percentage = 100;
+
+        // Rating
+        string rating;
+
+        if (percentage >= 90)
+            rating = "Outstanding";
+        else if (percentage >= 80)
+            rating = "Excellent";
+        else if (percentage >= 70)
+            rating = "Very Good";
+        else if (percentage >= 60)
+            rating = "Good";
+        else if (percentage >= 50)
+            rating = "Average";
+        else
+            rating = "Needs Improvement";
+
+        // Output
+        cout << "\nFinal Score = " << percentage << "%\n";
+        cout << "Rating = " << rating << endl;
+
+        // Advice
+        if (percentage >= 90)
+            cout << "Advice: Promotion Recommended\n";
+        else if (percentage >= 70)
+            cout << "Advice: Eligible for Bonus\n";
+        else if (percentage >= 50)
+            cout << "Advice: Improvement Needed\n";
+        else
+            cout << "Advice: Training Required\n";
+    }
+
+    return 0;
+}
